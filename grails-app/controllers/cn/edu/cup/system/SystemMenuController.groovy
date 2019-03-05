@@ -1,12 +1,12 @@
-<%=packageName ? "package ${packageName}" : ''%>
+package cn.edu.cup.system
 
 import grails.converters.JSON
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
-class ${className}Controller {
+class SystemMenuController {
 
-    ${className}Service ${propertyName}Service
+    SystemMenuService systemMenuService
     def commonQueryService
     def commonService
 
@@ -14,7 +14,7 @@ class ${className}Controller {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond ${propertyName}Service.list(params), model:[${propertyName}Count: ${propertyName}Service.count()]
+        respond systemMenuService.list(params), model: [systemMenuCount: systemMenuService.count()]
     }
 
     def show(Long id) {
@@ -23,12 +23,12 @@ class ${className}Controller {
             view = params.view
         }
 
-        def ${propertyName} =${propertyName}Service.get(id)
+        def systemMenu = systemMenuService.get(id)
 
         if (request.xhr) {
-            render(template: view, model: [${propertyName}: ${propertyName}])
+            render(template: view, model: [systemMenu: systemMenu])
         } else {
-            respond ${propertyName}
+            respond systemMenu
         }
     }
 
@@ -38,18 +38,18 @@ class ${className}Controller {
             view = params.view
         }
 
-        def ${propertyName} = new ${className}(params)
+        def systemMenu = new SystemMenu(params)
 
         if (request.xhr) {
-            render(template: view, model: [${propertyName}: ${propertyName}])
+            render(template: view, model: [systemMenu: systemMenu])
         } else {
-            respond ${propertyName}
+            respond systemMenu
         }
     }
 
-    def save(${className} ${propertyName}) {
+    def save(SystemMenu systemMenu) {
 
-        if (${propertyName} == null) {
+        if (systemMenu == null) {
             notFound()
             return
         }
@@ -65,14 +65,13 @@ class ${className}Controller {
         }
 
         try {
-            ${propertyName}Service.save(${propertyName})
-            flash.message = message(code: 'default.created.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
+            systemMenuService.save(systemMenu)
+            flash.message = message(code: 'default.created.message', args: [message(code: 'systemMenu.label', default: 'SystemMenu'), systemMenu.id])
         } catch (ValidationException e) {
-            flash.message = ${propertyName}.errors
+            flash.message = systemMenu.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -85,17 +84,17 @@ class ${className}Controller {
             view = params.view
         }
 
-        def ${propertyName} = ${propertyName}Service.get(id)
+        def systemMenu = systemMenuService.get(id)
 
         if (request.xhr) {
-            render(template: view, model: [${propertyName}: ${propertyName}])
+            render(template: view, model: [systemMenu: systemMenu])
         } else {
-            respond ${propertyName}
+            respond systemMenu
         }
     }
 
-    def update(${className} ${propertyName}) {
-        if (${propertyName} == null) {
+    def update(SystemMenu systemMenu) {
+        if (systemMenu == null) {
             notFound()
             return
         }
@@ -111,14 +110,13 @@ class ${className}Controller {
         }
 
         try {
-            ${propertyName}Service.save(${propertyName})
-            flash.message = message(code: 'default.updated.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
+            systemMenuService.save(systemMenu)
+            flash.message = message(code: 'default.updated.message', args: [message(code: 'systemMenu.label', default: 'SystemMenu'), systemMenu.id])
         } catch (ValidationException e) {
-            flash.message = ${propertyName}.errors
+            flash.message = systemMenu.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -131,8 +129,8 @@ class ${className}Controller {
             return
         }
 
-        ${propertyName}Service.delete(id)
-        flash.message = message(code: 'default.deleted.message', args: [message(code: '${propertyName}.label', default: '${className}'), id])
+        systemMenuService.delete(id)
+        flash.message = message(code: 'default.deleted.message', args: [message(code: 'systemMenu.label', default: 'SystemMenu'), id])
 
         def action = "index"
         if (params.nextAction) {
@@ -144,8 +142,7 @@ class ${className}Controller {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -183,31 +180,30 @@ class ${className}Controller {
 
     def importFromJsonFile(String fileName) {
         // 先清空
-        ${className}.list().each { e ->
-            ${propertyName}Service.delete(e.id)
+        SystemMenu.list().each { e ->
+            systemMenuService.delete(e.id)
         }
 
         def jsonFile = new File(fileName)
         if (jsonFile.exists()) {
             def json = jsonFile.text
-            def querys = commonService.importFromJson(json, ${className}.class)
+            def querys = commonService.importFromJson(json, SystemMenu.class)
             querys.each { e ->
-                ${propertyName}Service.save(e)
+                systemMenuService.save(e)
             }
         }
 
         def action = "index"
         if (params.nextAction) {
-           action = params.nextAction
-         }
+            action = params.nextAction
+        }
 
         def controller = ""
         if (params.nextController) {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -215,7 +211,7 @@ class ${className}Controller {
     }
 
     def exportToJsonFile(fileName) {
-        def fjson = commonService.exportObjects2JsonString(${className}.list())
+        def fjson = commonService.exportObjects2JsonString(SystemMenu.list())
         def printer = new File(fileName).newPrintWriter('utf-8')    //写入文件
         printer.println(fjson)
         printer.close()
@@ -230,8 +226,7 @@ class ${className}Controller {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -241,10 +236,10 @@ class ${className}Controller {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: '${propertyName}.label', default: '${className}'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'systemMenu.label', default: 'SystemMenu'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

@@ -37,9 +37,11 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="\${this.${propertyName}}" method="POST">
+            <g:form id="\${this.${propertyName}.id}" action="save" controller="\${params.controller}" method="POST">
                 <fieldset class="form">
                     <f:all bean="${propertyName}"/>
+                    <g:hiddenField name="nextController" value="\${params.nextController}"/>
+                    <g:hiddenField name="nextAction" value="\${params.nextAction}"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="\${message(code: 'default.button.create.label', default: 'Create')}" />
