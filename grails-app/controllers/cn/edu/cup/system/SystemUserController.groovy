@@ -1,17 +1,17 @@
-<%=packageName ? "package ${packageName}" : ''%>
+package cn.edu.cup.system
 
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
-class ${className}Controller {
+class SystemUserController {
 
-    ${className}Service ${propertyName}Service
+    SystemUserService systemUserService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond ${propertyName}Service.list(params), model:[${propertyName}Count: ${propertyName}Service.count()]
+        respond systemUserService.list(params), model:[systemUserCount: systemUserService.count()]
     }
 
     def show(Long id) {
@@ -20,12 +20,12 @@ class ${className}Controller {
             view = params.view
         }
 
-        def ${propertyName} =${propertyName}Service.get(id)
+        def systemUser =systemUserService.get(id)
 
         if (request.xhr) {
-            render(template: view, model: [${propertyName}: ${propertyName}])
+            render(template: view, model: [systemUser: systemUser])
         } else {
-            respond ${propertyName}
+            respond systemUser
         }
     }
 
@@ -35,18 +35,18 @@ class ${className}Controller {
             view = params.view
         }
 
-        def ${propertyName} = new ${className}(params)
+        def systemUser = new SystemUser(params)
 
         if (request.xhr) {
-            render(template: view, model: [${propertyName}: ${propertyName}])
+            render(template: view, model: [systemUser: systemUser])
         } else {
-            respond ${propertyName}
+            respond systemUser
         }
     }
 
-    def save(${className} ${propertyName}) {
+    def save(SystemUser systemUser) {
 
-        if (${propertyName} == null) {
+        if (systemUser == null) {
             notFound()
             return
         }
@@ -62,10 +62,10 @@ class ${className}Controller {
         }
 
         try {
-            ${propertyName}Service.save(${propertyName})
-            flash.message = message(code: 'default.created.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
+            systemUserService.save(systemUser)
+            flash.message = message(code: 'default.created.message', args: [message(code: 'systemUser.label', default: 'SystemUser'), systemUser.id])
         } catch (ValidationException e) {
-            flash.message = ${propertyName}.errors
+            flash.message = systemUser.errors
         }
 
         if (controller == "")
@@ -82,17 +82,17 @@ class ${className}Controller {
             view = params.view
         }
 
-        def ${propertyName} = ${propertyName}Service.get(id)
+        def systemUser = systemUserService.get(id)
 
         if (request.xhr) {
-            render(template: view, model: [${propertyName}: ${propertyName}])
+            render(template: view, model: [systemUser: systemUser])
         } else {
-            respond ${propertyName}
+            respond systemUser
         }
     }
 
-    def update(${className} ${propertyName}) {
-        if (${propertyName} == null) {
+    def update(SystemUser systemUser) {
+        if (systemUser == null) {
             notFound()
             return
         }
@@ -108,10 +108,10 @@ class ${className}Controller {
         }
 
         try {
-            ${propertyName}Service.save(${propertyName})
-            flash.message = message(code: 'default.updated.message', args: [message(code: '${propertyName}.label', default: '${className}'), ${propertyName}.id])
+            systemUserService.save(systemUser)
+            flash.message = message(code: 'default.updated.message', args: [message(code: 'systemUser.label', default: 'SystemUser'), systemUser.id])
         } catch (ValidationException e) {
-            flash.message = ${propertyName}.errors
+            flash.message = systemUser.errors
         }
 
         if (controller == "")
@@ -128,8 +128,8 @@ class ${className}Controller {
             return
         }
 
-        ${propertyName}Service.delete(id)
-        flash.message = message(code: 'default.deleted.message', args: [message(code: '${propertyName}.label', default: '${className}'), id])
+        systemUserService.delete(id)
+        flash.message = message(code: 'default.deleted.message', args: [message(code: 'systemUser.label', default: 'SystemUser'), id])
 
         def action = "index"
         if (params.nextAction) {
@@ -152,7 +152,7 @@ class ${className}Controller {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: '${propertyName}.label', default: '${className}'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'systemUser.label', default: 'SystemUser'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
