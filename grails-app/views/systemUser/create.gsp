@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="main" />
+    <!-- 实现可定制的布局 -->
+        <g:if test="${layout}">
+            <meta name="layout" content="${layout}"/>
+        </g:if>
+        <g:else>
+            <g:if test="${session.layout}">
+                <meta name="layout" content="${session.layout}"/>
+            </g:if>
+            <g:else>
+                <meta name="layout" content="main"/>
+            </g:else>
+        </g:else>
+    <!-- end 实现可定制的布局 -->
         <g:set var="entityName" value="${message(code: 'systemUser.label', default: 'SystemUser')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
