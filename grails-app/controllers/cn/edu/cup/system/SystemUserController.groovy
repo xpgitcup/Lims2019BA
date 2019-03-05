@@ -14,7 +14,7 @@ class SystemUserController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond systemUserService.list(params), model:[systemUserCount: systemUserService.count()]
+        respond systemUserService.list(params), model: [systemUserCount: systemUserService.count()]
     }
 
     def show(Long id) {
@@ -23,7 +23,7 @@ class SystemUserController {
             view = params.view
         }
 
-        def systemUser =systemUserService.get(id)
+        def systemUser = systemUserService.get(id)
 
         if (request.xhr) {
             render(template: view, model: [systemUser: systemUser])
@@ -71,8 +71,7 @@ class SystemUserController {
             flash.message = systemUser.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -117,8 +116,7 @@ class SystemUserController {
             flash.message = systemUser.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -144,8 +142,7 @@ class SystemUserController {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -198,16 +195,15 @@ class SystemUserController {
 
         def action = "index"
         if (params.nextAction) {
-           action = params.nextAction
-         }
+            action = params.nextAction
+        }
 
         def controller = ""
         if (params.nextController) {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -230,8 +226,7 @@ class SystemUserController {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -244,7 +239,7 @@ class SystemUserController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'systemUser.label', default: 'SystemUser'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }
