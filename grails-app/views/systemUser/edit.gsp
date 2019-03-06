@@ -38,10 +38,12 @@
                 </g:eachError>
             </ul>
             </g:hasErrors>
-            <g:form resource="${this.systemUser}" method="PUT">
+            <g:form id="${this.systemUser.id}" action="update" controller="${params.controller}" method="PUT">
                 <g:hiddenField name="version" value="${this.systemUser?.version}" />
                 <fieldset class="form">
                     <f:all bean="systemUser"/>
+                    <g:hiddenField name="nextController" value="${params.nextController}"/>
+                    <g:hiddenField name="nextAction" value="${params.nextAction}"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <input class="save" type="submit" value="${message(code: 'default.button.update.label', default: 'Update')}" />
