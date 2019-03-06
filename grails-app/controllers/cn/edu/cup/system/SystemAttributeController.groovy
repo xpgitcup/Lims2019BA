@@ -14,7 +14,7 @@ class SystemAttributeController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond systemAttributeService.list(params), model:[systemAttributeCount: systemAttributeService.count()]
+        respond systemAttributeService.list(params), model: [systemAttributeCount: systemAttributeService.count()]
     }
 
     def show(Long id) {
@@ -23,7 +23,7 @@ class SystemAttributeController {
             view = params.view
         }
 
-        def systemAttribute =systemAttributeService.get(id)
+        def systemAttribute = systemAttributeService.get(id)
 
         if (request.xhr) {
             render(template: view, model: [systemAttribute: systemAttribute])
@@ -33,7 +33,7 @@ class SystemAttributeController {
     }
 
     def create() {
-        def view = "show"
+        def view = "create"
         if (params.view) {
             view = params.view
         }
@@ -71,8 +71,7 @@ class SystemAttributeController {
             flash.message = systemAttribute.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -117,8 +116,7 @@ class SystemAttributeController {
             flash.message = systemAttribute.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -144,8 +142,7 @@ class SystemAttributeController {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -198,16 +195,15 @@ class SystemAttributeController {
 
         def action = "index"
         if (params.nextAction) {
-           action = params.nextAction
-         }
+            action = params.nextAction
+        }
 
         def controller = ""
         if (params.nextController) {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -230,8 +226,7 @@ class SystemAttributeController {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -244,7 +239,7 @@ class SystemAttributeController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'systemAttribute.label', default: 'SystemAttribute'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }

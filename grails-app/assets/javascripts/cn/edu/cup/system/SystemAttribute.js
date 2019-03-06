@@ -38,7 +38,7 @@ function createSystemAttribute(id) {
 * */
 function editSystemAttribute(id) {
     console.info("编辑SystemAttribute." + id);
-    ajaxRun("operation4SystemAttribute/editSystemAttribute", id, "showSystemAttributeDiv");
+    ajaxRun("operation4SystemAttribute/edit", id, "showSystemAttributeDiv");
 }
 
 /*

@@ -33,7 +33,7 @@ class MajorController {
     }
 
     def create() {
-        def view = "show"
+        def view = "create"
         if (params.view) {
             view = params.view
         }

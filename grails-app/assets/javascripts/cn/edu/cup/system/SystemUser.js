@@ -24,7 +24,7 @@ $(function () {
  * */
 function createSystemUser(id) {
     console.info("创建SystemUser. 上级节点：" + id);
-    ajaxRun("operation4SystemUser/createSystemUser", id, "showSystemUserDiv");
+    ajaxRun("operation4SystemUser/create", id, "showSystemUserDiv");
 }
 
 /*
@@ -41,7 +41,7 @@ function editSystemUser(id) {
 function showSystemUser(id) {
     console.info("显示当前" + id);
     if (id) {
-        ajaxRun("operation4SystemUser/getSystemUser", id, "showSystemUserDiv");
+        ajaxRun("operation4SystemUser/show", id, "showSystemUserDiv");
     }
 }
 

@@ -14,7 +14,7 @@ class SystemDefaultMenuController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond systemDefaultMenuService.list(params), model:[systemDefaultMenuCount: systemDefaultMenuService.count()]
+        respond systemDefaultMenuService.list(params), model: [systemDefaultMenuCount: systemDefaultMenuService.count()]
     }
 
     def show(Long id) {
@@ -23,7 +23,7 @@ class SystemDefaultMenuController {
             view = params.view
         }
 
-        def systemDefaultMenu =systemDefaultMenuService.get(id)
+        def systemDefaultMenu = systemDefaultMenuService.get(id)
 
         if (request.xhr) {
             render(template: view, model: [systemDefaultMenu: systemDefaultMenu])
@@ -33,7 +33,7 @@ class SystemDefaultMenuController {
     }
 
     def create() {
-        def view = "show"
+        def view = "create"
         if (params.view) {
             view = params.view
         }
@@ -71,8 +71,7 @@ class SystemDefaultMenuController {
             flash.message = systemDefaultMenu.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -117,8 +116,7 @@ class SystemDefaultMenuController {
             flash.message = systemDefaultMenu.errors
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -144,8 +142,7 @@ class SystemDefaultMenuController {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -198,16 +195,15 @@ class SystemDefaultMenuController {
 
         def action = "index"
         if (params.nextAction) {
-           action = params.nextAction
-         }
+            action = params.nextAction
+        }
 
         def controller = ""
         if (params.nextController) {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -230,8 +226,7 @@ class SystemDefaultMenuController {
             controller = params.nextController
         }
 
-        if (controller == "")
-        {
+        if (controller == "") {
             redirect(action: action)
         } else {
             redirect(controller: controller, action: action)
@@ -244,7 +239,7 @@ class SystemDefaultMenuController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'systemDefaultMenu.label', default: 'SystemDefaultMenu'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
 }
