@@ -31,7 +31,6 @@
                 <div class="message" role="status">${flash.message}</div>
             </g:if>
             <f:table collection="${systemUserList}" />
-
             <div class="paginationGrails">
                 <g:paginate total="${systemUserCount ?: 0}" />
             </div>

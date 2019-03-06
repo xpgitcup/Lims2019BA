@@ -39,7 +39,7 @@ function createSystemMenu(id) {
  * */
 function editSystemMenu(id) {
     console.info("编辑SystemMenu." + id);
-    ajaxRun("operation4SystemMenu/editSystemMenu", id, "showSystemMenuDiv");
+    ajaxRun("operation4SystemMenu/edit", id, "showSystemMenuDiv");
 }
 
 /*

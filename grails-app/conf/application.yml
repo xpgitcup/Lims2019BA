@@ -107,7 +107,8 @@ dataSource:
     #driverClassName: org.h2.Driver
     #username: sa
     #password: ''
-    driverClassName: com.mysql.jdbc.Driver
+    #driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     username: sample
     password: sample@chuyun
 
@@ -116,17 +117,20 @@ environments:
         dataSource:
             dbCreate: create-drop
             #url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=convertToNull
+            #url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=convertToNull  //5.XX
+            url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
     test:
         dataSource:
             dbCreate: update
             #url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=convertToNull
+            #url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=convertToNull
+            url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
     production:
         dataSource:
             dbCreate: none
             #url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=convertToNull
+            #url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=convertToNull
+            url: jdbc:mysql://localhost:3306/lims2018bdb?zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
             properties:
                 jmxEnabled: true
                 initialSize: 5

@@ -32,7 +32,7 @@ function createSystemUser(id) {
  * */
 function editSystemUser(id) {
     console.info("编辑SystemUser." + id);
-    ajaxRun("operation4SystemUser/editSystemUser", id, "showSystemUserDiv");
+    ajaxRun("operation4SystemUser/edit", id, "showSystemUserDiv");
 }
 
 /*
