@@ -44,7 +44,7 @@ function editItem(id) {
 function createItem(id) {
     //var title = getCurrentTabTitle(operation4ThingTypeDiv);
     //ajaxRun("operation4ThingType/create/?upTitle=" + id, 0, "list" + title + "Div");
-    ajaxRun("operation4ThingType/create", id, "showThingTypeDiv");
+    ajaxRun("operation4ThingType/create?upType=" + id, 0, "showThingTypeDiv");
 }
 
 function createProject(id) {
