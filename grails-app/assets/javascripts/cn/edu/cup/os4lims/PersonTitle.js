@@ -40,7 +40,7 @@ function editItem(id) {
 * 新建
 * */
 function createItem(id) {
-    ajaxRun("operation4PersonTitle/create", id, "showPersonTitleDiv");
+    ajaxRun("operation4PersonTitle/create?upTitle=" + id, 0, "showPersonTitleDiv");
 }
 
 function createPersonTitle(id) {

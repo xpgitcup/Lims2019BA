@@ -181,7 +181,10 @@ class QueryStatementController {
 
     protected void processResult(result) {}
 
-    def importFromJsonFile(String fileName) {
+    def importFromJsonFile() {
+
+        def fileName = "${commonService.webRootPath}/${params.fileName}"
+
         // 先清空
         QueryStatement.list().each { e ->
             queryStatementService.delete(e.id)
@@ -214,8 +217,11 @@ class QueryStatementController {
         }
     }
 
-    def exportToJsonFile(fileName) {
-        def fjson = commonService.exportObjects2JsonString(QueryStatement.list())
+    def exportToJsonFile() {
+
+        def fileName = "${commonService.webRootPath}/${params.fileName}"
+
+       def fjson = commonService.exportObjects2JsonString(QueryStatement.list())
         def printer = new File(fileName).newPrintWriter('utf-8')    //写入文件
         printer.println(fjson)
         printer.close()

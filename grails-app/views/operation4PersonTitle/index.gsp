@@ -8,7 +8,7 @@
 
 <html>
 <head>
-    <!--meta name="layout" content="main"/-->
+<!--meta name="layout" content="main"/-->
 <!-- 实现可定制的布局 -->
     <g:if test="${layout}">
         <meta name="layout" content="${layout}"/>
@@ -22,29 +22,24 @@
         </g:else>
     </g:else>
 <!-- end 实现可定制的布局 -->
-    <g:set var="entityName" value="QueryStatement"/>
+    <g:set var="entityName" value="PersonTitle"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>${entityName}维护</title>
-    <asset:javascript src="cn/edu/cup/system/${entityName}.js"/>
+    <asset:javascript src="cn/edu/cup/os4lims/${entityName}.js"/>
 </head>
 
 <body>
 
 <div class="nav">
-    <ul id="operation4QueryStatementUl">
-        <li></li>
-        <li>
-            <a href="operation4QueryStatement/exportToJsonFile?fileName=systemConfig/queryStatement.json" class="save">导出Json文件</a>
-        </li>
-        <li>
-            <a href="operation4QueryStatement/importFromJsonFile?fileName=systemConfig/queryStatement.json" class="create">从Json文件导入</a>
-        </li>
-        <li>
-            <a href="javascript: listToDo()">待编辑&完成</a>
-        </li>
-        <li>
-            <a href="javascript: clearFilter()">清除筛选条件</a>
-        </li>
+    <ul id="operation4PersonTitleUl">
+        <li><a>当前</a></li>
+        <li><a id="currentTitle"></a></li>
+        <li><a>||</a></li>
+        <li><a id="createRootItem" href="javascript: createItem(0)">创建根节点</a></li>
+        <li><a id="createItem" href="#"></a></li>
+        <li><a id="editItem" href="#"></a></li>
+        <li><a id="deleteItem" href="#"></a></li>
+        <!--li><a id="exportMatterType" href="operation4PersonTitle/exportToJsonFile/0" class="save">导出文件</a></li-->
     </ul>
 </div>
 
@@ -52,7 +47,15 @@
     <div class="message" role="status">${flash.message}</div>
 </g:if>
 
-<div id="operation4QueryStatementDiv" class="easyui-panel">
+<div class="container-fluid">
+    <div class="col-md-6">
+        <div id="operation4PersonTitleDiv" class="easyui-panel"></div>
+    </div>
+
+    <div class="col-md-6">
+        <div id="showPersonTitleDiv" class="easyui-panel"></div>
+    </div>
 </div>
+
 </body>
 </html>

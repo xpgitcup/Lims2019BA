@@ -181,7 +181,10 @@ class ${className}Controller {
 
     protected void processResult(result) {}
 
-    def importFromJsonFile(String fileName) {
+    def importFromJsonFile() {
+
+        def fileName = "\${commonService.webRootPath}/\${params.fileName}"
+
         // 先清空
         ${className}.list().each { e ->
             ${propertyName}Service.delete(e.id)
@@ -214,8 +217,11 @@ class ${className}Controller {
         }
     }
 
-    def exportToJsonFile(fileName) {
-        def fjson = commonService.exportObjects2JsonString(${className}.list())
+    def exportToJsonFile() {
+
+        def fileName = "\${commonService.webRootPath}/\${params.fileName}"
+
+       def fjson = commonService.exportObjects2JsonString(${className}.list())
         def printer = new File(fileName).newPrintWriter('utf-8')    //写入文件
         printer.println(fjson)
         printer.close()
