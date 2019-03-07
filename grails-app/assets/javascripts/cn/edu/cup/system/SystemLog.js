@@ -30,7 +30,7 @@ function createSystemLog(id) {
  * */
 function editSystemLog(id) {
     console.info("编辑SystemLog." + id);
-    ajaxRun("operation4SystemLog/editSystemLog", id, "showSystemLogDiv");
+    ajaxRun("operation4SystemLog/edit", id, "showSystemLogDiv");
 }
 
 /*
@@ -39,7 +39,7 @@ function editSystemLog(id) {
 function showSystemLog(id) {
     console.info("显示当前" + id);
     if (id) {
-        ajaxRun("operation4SystemLog/getSystemLog", id, "showSystemLogDiv");
+        ajaxRun("operation4SystemLog/show", id, "showSystemLogDiv");
     }
 }
 

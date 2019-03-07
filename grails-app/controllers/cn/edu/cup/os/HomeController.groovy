@@ -142,7 +142,7 @@ class HomeController {
         String p = params.password.encodeAsMD5()
         def systemUser = SystemUser.findByUserNameAndPassword(userName, p)
         if (systemUser) {
-            println("找到了：${systemUser}")
+            //println("找到了：${systemUser}")
             session.systemUser = systemUser
             //初始化用户菜单
             listSystemMenu()
