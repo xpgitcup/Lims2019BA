@@ -155,9 +155,9 @@ class ${className}Controller {
     def list() {
         prepareParams()
         def result = commonQueryService.listFunction(params)
+        result = processResult(result, params)
         def view = result.view
         flash.message = result.message
-        processResult(result)
         if (request.xhr) {
             render(template: view, model: [objectList: result.objectList, flash: flash])
         } else {
@@ -179,7 +179,9 @@ class ${className}Controller {
 
     protected void prepareParams() {}
 
-    protected void processResult(result) {}
+    protected def processResult(result, params) {
+        return result
+    }
 
     def importFromJsonFile() {
 

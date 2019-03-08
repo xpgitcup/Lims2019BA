@@ -155,9 +155,9 @@ class ProgressController {
     def list() {
         prepareParams()
         def result = commonQueryService.listFunction(params)
+        result = processResult(result, params)
         def view = result.view
         flash.message = result.message
-        processResult(result)
         if (request.xhr) {
             render(template: view, model: [objectList: result.objectList, flash: flash])
         } else {
@@ -179,9 +179,14 @@ class ProgressController {
 
     protected void prepareParams() {}
 
-    protected void processResult(result) {}
+    protected def processResult(result, params) {
+        return result
+    }
 
-    def importFromJsonFile(String fileName) {
+    def importFromJsonFile() {
+
+        def fileName = "${commonService.webRootPath}/${params.fileName}"
+
         // 先清空
         Progress.list().each { e ->
             progressService.delete(e.id)
@@ -214,8 +219,11 @@ class ProgressController {
         }
     }
 
-    def exportToJsonFile(fileName) {
-        def fjson = commonService.exportObjects2JsonString(Progress.list())
+    def exportToJsonFile() {
+
+        def fileName = "${commonService.webRootPath}/${params.fileName}"
+
+       def fjson = commonService.exportObjects2JsonString(Progress.list())
         def printer = new File(fileName).newPrintWriter('utf-8')    //写入文件
         printer.println(fjson)
         printer.close()
