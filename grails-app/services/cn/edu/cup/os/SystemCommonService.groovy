@@ -108,7 +108,7 @@ class SystemCommonService {
             request.session.systemUserList = users
             //统计人数
             request.session.onlineCount = serviceMap.size()
-            println("${users}")
+            //println("${users}")
         }
     }
 

@@ -46,7 +46,6 @@ function createNextProgress(id) {
 
 function createProgress(id) {
     console.info("创建新进度...")
-    selectCurrentItem(id);
     ajaxRun("operation4Progress/createProgress", id, "editProgressDiv");
     //checkProgress(id);
 }
