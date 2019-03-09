@@ -84,8 +84,8 @@ class InitService {
         //--------------------------------------------------------------------------------------------------------------
         if (SystemMenu.count() < 1) {
             importFromJsonFile(fileName)
+            setupDomainMenuItems(domains)
         }
-        setupDomainMenuItems(domains)
     }
 
     private SystemMenu setupDomainMenuItems(domains) {
