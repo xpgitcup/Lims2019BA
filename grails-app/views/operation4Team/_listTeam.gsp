@@ -1,3 +1,4 @@
+<%@ page import="cn.edu.cup.lims.Person" %>
 <!DOCTYPE html>
 <html>
 <head>

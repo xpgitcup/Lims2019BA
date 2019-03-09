@@ -3,6 +3,8 @@ package cn.edu.cup.common
 
 import cn.edu.cup.system.QueryStatement
 import grails.gorm.transactions.Transactional
+import groovy.sql.GroovyRowResult
+import groovy.sql.Sql
 
 @Transactional
 class CommonQueryService {
@@ -18,9 +20,11 @@ class CommonQueryService {
         def pl = []
         def queryStatement = QueryStatement.findByKeyString(keyString)
         if (queryStatement) {
-            if (queryStatement.hql || queryStatement.viewName) {
+            if (queryStatement.viewName) {
                 //视图
                 result.view = queryStatement.viewName
+            }
+            if (queryStatement.hql) {
                 //参数处理
                 if (queryStatement.paramsList) {
                     pl.addAll(queryStatement.paramsList.split(","))
@@ -33,24 +37,7 @@ class CommonQueryService {
                 }
                 //println("list 参数：${ps}")
                 if (queryStatement.isSQL) {
-                    def db = new groovy.sql.Sql(dataSource)
-                    println("执行SQL ${queryStatement.hql} 参数：${ps}")
-                    // 处理分页
-                    def sql = queryStatement.hql
-                    if (sql.contains('limit')) {
-                        println("开始处理分页参数:")
-                        sql = String.format(queryStatement.hql, Integer.parseInt(ps.offset), Integer.parseInt(ps.max))
-                        ps.remove("offset")
-                        ps.remove("max")
-                        println("植入分页控制：${sql}")
-                    }
-                    // 剔除分页控制后
-                    if (ps.size() > 0) {
-                        objectList = db.rows(ps, sql)
-                    } else {
-                        objectList = db.rows(sql)
-                    }
-                    //println("列表SQL: ${objectList}")
+                    objectList = processParams4SQL(queryStatement, ps)
                 } else {
                     //println("HQL: ${queryStatement.hql}, ${ps}")
                     objectList = QueryStatement.executeQuery(queryStatement.hql, ps)
@@ -65,6 +52,29 @@ class CommonQueryService {
             result.message = "创建新的list查询."
         }
         return result
+    }
+
+    private List<GroovyRowResult> processParams4SQL(QueryStatement queryStatement, ps) {
+        def objectList
+        def db = new Sql(dataSource)
+        println("执行SQL ${queryStatement.hql} 参数：${ps}")
+        // 处理分页
+        def sql = queryStatement.hql
+        if (sql.contains('limit')) {
+            println("开始处理分页参数:")
+            sql = String.format(queryStatement.hql, Integer.parseInt(ps.offset), Integer.parseInt(ps.max))
+            ps.remove("offset")
+            ps.remove("max")
+            println("植入分页控制：${sql}")
+        }
+        // 剔除分页控制后
+        if (ps.size() > 0) {
+            objectList = db.rows(ps, sql)
+        } else {
+            objectList = db.rows(sql)
+        }
+        //println("列表SQL: ${objectList}")
+        objectList
     }
 
     Object countFunction(params) {

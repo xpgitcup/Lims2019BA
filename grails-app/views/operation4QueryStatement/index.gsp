@@ -45,6 +45,11 @@
         <li>
             <a href="javascript: clearFilter()">清除筛选条件</a>
         </li>
+        <li>
+            <g:form>
+
+            </g:form>
+        </li>
     </ul>
 </div>
 
