@@ -154,6 +154,7 @@ class QueryStatementController {
 
     def list() {
         prepareParams()
+        println("${params}")
         def result = commonQueryService.listFunction(params)
         def view = result.view
         flash.message = result.message

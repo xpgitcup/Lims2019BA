@@ -30,7 +30,13 @@ function deleteItem(id) {
 * 查询
 * */
 function queryStatement() {
-    console.info("查询...");
+    var keyString = document.getElementById("keyString");
+    //alert("查询..." + keyString.value);
+    console.info("查询..." + keyString.value);
+    $.cookie("filter", true);
+    $.cookie("keyString", keyString.value);
+    //$("#filter").html("待编辑&完成" + keyString);
+    location.reload();
 }
 
 /*
@@ -47,6 +53,8 @@ function listToDo() {
 * */
 function clearFilter() {
     $.cookie("filter", "");
+    $.cookie("keyString", "");
+    //$("#filter").html("待编辑&完成");
     location.reload();
 }
 
@@ -56,10 +64,15 @@ function clearFilter() {
 function appendParam() {
     var filter = false
     filter = readCookie("filter", false);
-    console.info("过滤状态：" + filter);
+    var keyString = readCookie("keyString", "")
+    console.info("过滤状态：" + filter + " " + keyString);
     var param = ""
     if (filter) {
-        param = "&filter=true"
+        if (keyString) {
+            param = "&keyString=" + keyString;
+        } else {
+            param = "&filter=true"
+        }
     }
     console.info("附加参数：" + param);
     return param

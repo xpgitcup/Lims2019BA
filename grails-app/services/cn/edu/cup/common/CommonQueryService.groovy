@@ -15,6 +15,7 @@ class CommonQueryService {
     def listFunction(params) {
         def result = [:]
         def keyString = generateKeyString(params)
+        println("${keyString}")
         def objectList
         result.view = "default"
         def pl = []
@@ -26,6 +27,7 @@ class CommonQueryService {
             }
             if (queryStatement.needToQuery) {
                 if (queryStatement.hql) {
+                    println("${queryStatement.hql}")
                     //参数处理
                     if (queryStatement.paramsList) {
                         pl.addAll(queryStatement.paramsList.split(","))
@@ -36,24 +38,36 @@ class CommonQueryService {
                     pl.each { e ->
                         ps.put(e, params.get(e))
                     }
-                    //println("list 参数：${ps}")
+                    println("list 参数：${ps}")
                     if (queryStatement.isSQL) {
                         objectList = processParams4SQL(queryStatement, ps)
                     } else {
-                        //println("HQL: ${queryStatement.hql}, ${ps}")
-                        objectList = QueryStatement.executeQuery(queryStatement.hql, ps)
+                        println("HQL: ${queryStatement.hql}, ${ps}")
+                        def hql = processLikeParameter(queryStatement, ps)
+                        objectList = QueryStatement.executeQuery(hql, ps)
                     }
                     result.objectList = objectList
                 } else {
-                    result.message += "请完善list查询."
+                    result.message = "请完善list查询."
                 }
             }
         } else {
             def nq = new QueryStatement(keyString: keyString);
             queryStatementService.save(nq)
-            result.message += "创建新的list查询."
+            result.message = "创建新的list查询."
         }
         return result
+    }
+
+    private processLikeParameter(QueryStatement queryStatement, LinkedHashMap ps) {
+        def temp = queryStatement.hql
+        if (queryStatement.hql.contains("like")) {
+            def keyStringA = "\'%${ps.keyString}%\'"
+            ps.remove("keyString")
+            temp = queryStatement.hql.replace(":keyString", keyStringA)
+            println("处理like: ${temp}")
+        }
+        return temp
     }
 
     private List<GroovyRowResult> processParams4SQL(QueryStatement queryStatement, ps) {
@@ -87,7 +101,7 @@ class CommonQueryService {
         def queryStatement = QueryStatement.findByKeyString(keyString)
         if (queryStatement) {
             if (queryStatement.needToQuery) {
-                //println("统计语句； ${queryStatement.hql}")
+                println("统计语句； ${queryStatement.hql}")
                 if (queryStatement.hql) {
                     if (queryStatement.paramsList) {
                         pl.addAll(queryStatement.paramsList.split(","))
@@ -111,7 +125,8 @@ class CommonQueryService {
                         count = [c[0].values()[0]]
                         //println("SQL 执行结果：${count}")
                     } else {
-                        count = QueryStatement.executeQuery(queryStatement.hql, ps)
+                        def hql = processLikeParameter(queryStatement, ps)
+                        count = QueryStatement.executeQuery(hql, ps)
                     }
                 }
             }

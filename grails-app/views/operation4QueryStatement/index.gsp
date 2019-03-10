@@ -40,7 +40,7 @@
             <a href="operation4QueryStatement/importFromJsonFile?fileName=systemConfig/queryStatement.json" class="create">从Json文件导入</a>
         </li>
         <li>
-            <a href="javascript: listToDo()">待编辑&完成</a>
+            <a id="filter" href="javascript: listToDo()">待编辑&完成</a>
         </li>
         <li>
             <a href="javascript: clearFilter()">清除筛选条件</a>
@@ -48,7 +48,7 @@
         <li>
             <g:form onsubmit="return queryStatement()">
                 <label>关键字</label>
-                <input type="text" name="keyString" />
+                <input type="text" id="keyString" name="keyString" value=""/>
                 <input type="submit" name="查询" value="查询">
             </g:form>
         </li>
