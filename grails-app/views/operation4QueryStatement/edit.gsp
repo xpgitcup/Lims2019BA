@@ -62,6 +62,10 @@
                 <td>视图</td>
                 <td><g:textField name="viewName" value="${queryStatement.viewName}"></g:textField></td>
             </tr>
+            <tr>
+                <td>是否需要执行</td>
+                <td><g:textField name="needToQuery" value="${queryStatement.needToQuery}"></g:textField></td>
+            </tr>
             </table>
         </fieldset>
         <fieldset class="buttons">

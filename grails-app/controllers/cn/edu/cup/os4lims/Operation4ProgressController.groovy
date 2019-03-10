@@ -1,9 +1,11 @@
 package cn.edu.cup.os4lims
 
 import cn.edu.cup.lims.Person
+import cn.edu.cup.lims.PersonTitle
 import cn.edu.cup.lims.Progress
 import cn.edu.cup.lims.ProgressController
 import cn.edu.cup.lims.Team
+import cn.edu.cup.lims.ThingTypeCircle
 
 import java.text.SimpleDateFormat
 
@@ -71,6 +73,12 @@ class Operation4ProgressController extends ProgressController {
     protected void prepareParams() {
         def myself = Person.get(session.realId)
         switch (params.key) {
+            case "我管理的":
+                // 任务
+                def currentTitle = PersonTitle.get(session.realTitle)
+                def list = ThingTypeCircle.allRelatedThingTypes(currentTitle)
+                params.thingTypeList = list
+                break
             case "反馈信息":
                 def currentProgress = Progress.get(params.currentProgress)
                 if (currentProgress) {

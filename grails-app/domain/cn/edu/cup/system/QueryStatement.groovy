@@ -7,7 +7,7 @@ class QueryStatement {
     boolean isSQL = false
     String viewName
     String paramsList
-    Integer refCount = 0
+    boolean needToQuery = true  //是否需要执行
 
     static constraints = {
         keyString(unique: true)
@@ -15,7 +15,7 @@ class QueryStatement {
         isSQL(nullable: true)
         viewName(nullable: true)
         paramsList(nullable: true)
-        refCount()
+        needToQuery()
     }
 
     String toString() {

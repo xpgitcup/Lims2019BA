@@ -32,7 +32,7 @@
         <th>属性</th>
         <th>视图</th>
         <th>参数</th>
-        <th>计数</th>
+        <th>执行</th>
         </thead>
         <tbody>
         <g:each in="${objectList}" var="item" status="i">
@@ -46,7 +46,7 @@
                 <td>${item.isSQL}</td>
                 <td>${item.viewName}</td>
                 <td>${item.paramsList}</td>
-                <td>${item.refCount}</td>
+                <td>${item.needToQuery}</td>
             </tr>
         </g:each>
         </tbody>

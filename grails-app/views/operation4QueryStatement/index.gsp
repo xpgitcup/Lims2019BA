@@ -46,8 +46,10 @@
             <a href="javascript: clearFilter()">清除筛选条件</a>
         </li>
         <li>
-            <g:form>
-
+            <g:form onsubmit="return queryStatement()">
+                <label>关键字</label>
+                <input type="text" name="keyString" />
+                <input type="submit" name="查询" value="查询">
             </g:form>
         </li>
     </ul>

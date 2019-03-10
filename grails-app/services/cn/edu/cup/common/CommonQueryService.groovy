@@ -24,32 +24,34 @@ class CommonQueryService {
                 //视图
                 result.view = queryStatement.viewName
             }
-            if (queryStatement.hql) {
-                //参数处理
-                if (queryStatement.paramsList) {
-                    pl.addAll(queryStatement.paramsList.split(","))
-                }
-                def ps = [:]
-                ps.offset = params.offset
-                ps.max = params.max
-                pl.each { e ->
-                    ps.put(e, params.get(e))
-                }
-                //println("list 参数：${ps}")
-                if (queryStatement.isSQL) {
-                    objectList = processParams4SQL(queryStatement, ps)
+            if (queryStatement.needToQuery) {
+                if (queryStatement.hql) {
+                    //参数处理
+                    if (queryStatement.paramsList) {
+                        pl.addAll(queryStatement.paramsList.split(","))
+                    }
+                    def ps = [:]
+                    ps.offset = params.offset
+                    ps.max = params.max
+                    pl.each { e ->
+                        ps.put(e, params.get(e))
+                    }
+                    //println("list 参数：${ps}")
+                    if (queryStatement.isSQL) {
+                        objectList = processParams4SQL(queryStatement, ps)
+                    } else {
+                        //println("HQL: ${queryStatement.hql}, ${ps}")
+                        objectList = QueryStatement.executeQuery(queryStatement.hql, ps)
+                    }
+                    result.objectList = objectList
                 } else {
-                    //println("HQL: ${queryStatement.hql}, ${ps}")
-                    objectList = QueryStatement.executeQuery(queryStatement.hql, ps)
+                    result.message += "请完善list查询."
                 }
-                result.objectList = objectList
-            } else {
-                result.message = "请完善list查询."
             }
         } else {
             def nq = new QueryStatement(keyString: keyString);
             queryStatementService.save(nq)
-            result.message = "创建新的list查询."
+            result.message += "创建新的list查询."
         }
         return result
     }
@@ -84,31 +86,33 @@ class CommonQueryService {
         //查询SQL语句
         def queryStatement = QueryStatement.findByKeyString(keyString)
         if (queryStatement) {
-            //println("统计语句； ${queryStatement.hql}")
-            if (queryStatement.hql) {
-                if (queryStatement.paramsList) {
-                    pl.addAll(queryStatement.paramsList.split(","))
-                }
-                def ps = [:]
-                pl.each { e ->
-                    ps.put(e, params.get(e))
-                }
-                //println("count 参数：${ps}")
-                // 区分HQL以及SQL
-                if (queryStatement.isSQL) {
-                    def db = new groovy.sql.Sql(dataSource)
-                    //println("统计SQL ${queryStatement.hql} 参数${ps}")
-                    def c
-                    if (ps.size() > 0) {
-                        c = db.rows(ps, queryStatement.hql)
-                    } else {
-                        c = db.rows(queryStatement.hql)
+            if (queryStatement.needToQuery) {
+                //println("统计语句； ${queryStatement.hql}")
+                if (queryStatement.hql) {
+                    if (queryStatement.paramsList) {
+                        pl.addAll(queryStatement.paramsList.split(","))
                     }
-                    //println("统计SQL的结果 ${c}")
-                    count = [c[0].values()[0]]
-                    //println("SQL 执行结果：${count}")
-                } else {
-                    count = QueryStatement.executeQuery(queryStatement.hql, ps)
+                    def ps = [:]
+                    pl.each { e ->
+                        ps.put(e, params.get(e))
+                    }
+                    //println("count 参数：${ps}")
+                    // 区分HQL以及SQL
+                    if (queryStatement.isSQL) {
+                        def db = new groovy.sql.Sql(dataSource)
+                        //println("统计SQL ${queryStatement.hql} 参数${ps}")
+                        def c
+                        if (ps.size() > 0) {
+                            c = db.rows(ps, queryStatement.hql)
+                        } else {
+                            c = db.rows(queryStatement.hql)
+                        }
+                        //println("统计SQL的结果 ${c}")
+                        count = [c[0].values()[0]]
+                        //println("SQL 执行结果：${count}")
+                    } else {
+                        count = QueryStatement.executeQuery(queryStatement.hql, ps)
+                    }
                 }
             }
         } else {

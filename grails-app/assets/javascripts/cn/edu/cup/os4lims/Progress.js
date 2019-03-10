@@ -1,6 +1,6 @@
 var operation4ProgressDiv;
 var operation4ProgressUl;
-var jsTitleProgress = ["我领导的", "我参与的", "进度查看", "反馈信息"];
+var jsTitleProgress = ["我管理的", "我领导的", "我参与的", "进度查看", "反馈信息"];
 var title4Progress = jsTitleProgress;
 var tabsTitle = "任务管理";
 var localPageSizeProgress = 5;
@@ -34,7 +34,7 @@ $(function () {
 
 function updateUploadFileName(fileName) {
     var aainput = document.getElementById("uploadedFile");
-    $("#supportFileName").attr("value",aainput.files[0].name);
+    $("#supportFileName").attr("value", aainput.files[0].name);
     console.info("所选择的文件：" + fileName);
     console.info(aainput.files[0].name)
 }

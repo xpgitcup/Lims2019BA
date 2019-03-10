@@ -27,6 +27,13 @@ function deleteItem(id) {
 }
 
 /*
+* 查询
+* */
+function queryStatement() {
+    console.info("查询...");
+}
+
+/*
 * 定位到需要编辑的记录
 * */
 function listToDo() {
