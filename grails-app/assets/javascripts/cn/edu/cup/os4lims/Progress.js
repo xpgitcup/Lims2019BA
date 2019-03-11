@@ -1,6 +1,6 @@
 var operation4ProgressDiv;
 var operation4ProgressUl;
-var jsTitleProgress = ["我管理的", "我领导的", "我参与的", "进度查看", "反馈信息"];
+var jsTitleProgress = ["我管理的", "我领导的", "我参与的", "进度查看"];
 var title4Progress = jsTitleProgress;
 var tabsTitle = "任务管理";
 var localPageSizeProgress = 5;
@@ -64,6 +64,9 @@ function selectCurrentItem(id) {
     var title = getCurrentTabTitle(operation4ProgressDiv)
     $.cookie("currentKey" + title, id);
     switch (title) {
+        case "我管理的":
+            $.cookie("currentKey" + "当前团队", id);
+            break
         case "我领导的":
             $.cookie("currentKey" + "当前团队", id);
             break

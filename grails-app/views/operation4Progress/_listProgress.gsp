@@ -24,7 +24,6 @@
                     <td>${item?.prevProgress?.currentStatus}</td>
                     <td>
                         ${item.currentStatus}
-                        <a href="javascript: checkEvaluate(${item.id})">查看反馈</a>
                         <a class="create" href="javascript: createNextProgress(${item.id})">上报进度</a>
                     </td>
                     <td>${item.contributor}</td>

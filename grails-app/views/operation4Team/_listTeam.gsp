@@ -23,7 +23,7 @@
         <th>任务</th>
         <th>招募</th>
         <th>队员</th>
-        <th>进度</th>
+        <th>进度数</th>
         </thead>
         <g:if test="${objectList.size() < 1}">
             <div style="color: red">没有相关的团队！</div>
@@ -58,7 +58,7 @@
                     <g:else>队长负责招人！</g:else>
                 </td>
                 <td>${item.members?.size()}</td>
-                <td>${item.progresses}</td>
+                <td>${item.progresses?.size()}</td>
             </tr>
         </g:each>
         </tbody>

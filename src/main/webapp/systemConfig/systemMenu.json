@@ -130,6 +130,20 @@
         "menuDescription": "新生加入到系统中，创建用户",
         "upMenuItem": "用户服务",
         "menuOrder": 1
+      },
+      {
+        "menuContext": "所管项目",
+        "menuAction": "manage4Progress/index?title=所管项目&jsRoutine=progressGL",
+        "menuDescription": "我所管理的所有项目的进度管理",
+        "upMenuItem": "用户服务",
+        "menuOrder": 1
+      },
+      {
+        "menuContext": "所教课程",
+        "menuAction": "manage4Progress/index?title=所教课程&jsRoutine=progressKC",
+        "menuDescription": "我所管理的所有项目的进度管理",
+        "upMenuItem": "用户服务",
+        "menuOrder": 1
       }
     ]
   },
