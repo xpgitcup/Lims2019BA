@@ -44,6 +44,12 @@ function createNextProgress(id) {
     ajaxRun("operation4Progress/createNextProgress", id, "editProgressDiv");
 }
 
+function createCurrentProgress() {
+    var key = "currentKey当前团队";
+    var id = readCookie(key, 0);
+    ajaxRun("operation4Progress/createProgress", id, "editProgressDiv");
+}
+
 function createProgress(id) {
     console.info("创建新进度...")
     ajaxRun("operation4Progress/createProgress", id, "editProgressDiv");
