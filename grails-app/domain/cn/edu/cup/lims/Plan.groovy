@@ -2,17 +2,21 @@ package cn.edu.cup.lims
 
 class Plan {
 
-    String thing    //thing ID 以及名称
+    Integer thinOrTypeId        //id
+    String thingOrTypeName      //thing ID 以及名称
     Date updateDate
+    Boolean isTypePlan = true   // 针对类型的计划
 
     static hasMany = [planItems: PlanItem]
 
     static constraints = {
-        thing()
+        thinOrTypeId()
+        thingOrTypeName()
         updateDate()
+        isTypePlan()
     }
 
     String toString() {
-        return "${thing}.计划"
+        return "${thingOrTypeName}.计划"
     }
 }

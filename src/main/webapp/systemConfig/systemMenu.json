@@ -148,6 +148,29 @@
     ]
   },
   {
+    "menuContext": "教师服务",
+    "menuAction": "#",
+    "menuDescription": "#",
+    "roleAttribute": "教师服务",
+    "menuOrder": 0,
+    "menuItems": [
+      {
+        "menuContext": "通用计划维护",
+        "menuAction": "operation4Plan/index?title=通用计划&jsRoutine=typePlan",
+        "menuDescription": "与系统中的用户对话",
+        "upMenuItem": "教师服务",
+        "menuOrder": 0
+      },
+      {
+        "menuContext": "个性计划维护",
+        "menuAction": "operation4Plan/index?title=个性计划&jsRoutine=thingPlan",
+        "menuDescription": "上传每周工作汇报",
+        "upMenuItem": "教师服务",
+        "menuOrder": 0
+      }
+    ]
+  },
+  {
     "menuContext": "学生服务",
     "menuAction": "#",
     "menuDescription": "#",

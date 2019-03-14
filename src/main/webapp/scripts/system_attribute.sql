@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 10.1.16.50
-Source Server Version : 50627
-Source Host           : 10.1.16.50:3306
+Source Server         : sample
+Source Server Version : 50725
+Source Host           : localhost:3306
 Source Database       : lims2018bdb
 
 Target Server Type    : MYSQL
-Target Server Version : 50627
+Target Server Version : 50725
 File Encoding         : 65001
 
-Date: 2019-03-10 14:37:43
+Date: 2019-03-14 10:40:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,7 +26,7 @@ CREATE TABLE `system_attribute` (
   PRIMARY KEY (`id`),
   KEY `FKa8ygck6uvyk4a6bb7ywe573xp` (`up_attribute_id`),
   CONSTRAINT `FKa8ygck6uvyk4a6bb7ywe573xp` FOREIGN KEY (`up_attribute_id`) REFERENCES `system_attribute` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of system_attribute
@@ -45,3 +45,4 @@ INSERT INTO `system_attribute` VALUES ('11', '1', '用户服务', '8');
 INSERT INTO `system_attribute` VALUES ('12', '1', '用户服务', '9');
 INSERT INTO `system_attribute` VALUES ('14', '0', '系统维护', '8');
 INSERT INTO `system_attribute` VALUES ('15', '0', '底层管理', '8');
+INSERT INTO `system_attribute` VALUES ('16', '0', '教师服务', '8');

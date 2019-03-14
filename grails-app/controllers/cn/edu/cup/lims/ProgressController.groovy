@@ -13,8 +13,23 @@ class ProgressController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+        def model = [:]
+        def userResult = false
         params.max = Math.min(max ?: 10, 100)
-        respond progressService.list(params), model:[progressCount: progressService.count()]
+        if (params.title) {
+            model.progressTitle = params.title
+            userResult = true
+        }
+        if (params.jsRoutine) {
+            model.progressJsRoutine = params.jsRoutine
+            userResult = true
+        }
+
+        if (userResult) {
+            model
+        } else {
+            respond progressService.list(params), model:[progressCount: progressService.count()]
+        }
     }
 
     def show(Long id) {
@@ -23,7 +38,7 @@ class ProgressController {
             view = params.view
         }
 
-        def progress =progressService.get(id)
+        def progress = progressService.get(id)
 
         if (request.xhr) {
             render(template: view, model: [progress: progress])

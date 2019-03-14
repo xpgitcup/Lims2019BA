@@ -13,8 +13,23 @@ class PlanController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+        def model = [:]
+        def userResult = false
         params.max = Math.min(max ?: 10, 100)
-        respond planService.list(params), model:[planCount: planService.count()]
+        if (params.title) {
+            model.planTitle = params.title
+            userResult = true
+        }
+        if (params.jsRoutine) {
+            model.planJsRoutine = params.jsRoutine
+            userResult = true
+        }
+
+        if (userResult) {
+            model
+        } else {
+            respond planService.list(params), model:[planCount: planService.count()]
+        }
     }
 
     def show(Long id) {
@@ -23,7 +38,7 @@ class PlanController {
             view = params.view
         }
 
-        def plan =planService.get(id)
+        def plan = planService.get(id)
 
         if (request.xhr) {
             render(template: view, model: [plan: plan])

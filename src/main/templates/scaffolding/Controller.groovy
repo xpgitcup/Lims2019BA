@@ -13,8 +13,23 @@ class ${className}Controller {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
+        def model = [:]
+        def userResult = false
         params.max = Math.min(max ?: 10, 100)
-        respond ${propertyName}Service.list(params), model:[${propertyName}Count: ${propertyName}Service.count()]
+        if (params.title) {
+            model.${propertyName}Title = params.title
+            userResult = true
+        }
+        if (params.jsRoutine) {
+            model.${propertyName}JsRoutine = params.jsRoutine
+            userResult = true
+        }
+
+        if (userResult) {
+            model
+        } else {
+            respond ${propertyName}Service.list(params), model:[${propertyName}Count: ${propertyName}Service.count()]
+        }
     }
 
     def show(Long id) {
@@ -23,7 +38,7 @@ class ${className}Controller {
             view = params.view
         }
 
-        def ${propertyName} =${propertyName}Service.get(id)
+        def ${propertyName} = ${propertyName}Service.get(id)
 
         if (request.xhr) {
             render(template: view, model: [${propertyName}: ${propertyName}])
