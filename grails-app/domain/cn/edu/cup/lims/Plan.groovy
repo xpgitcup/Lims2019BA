@@ -2,7 +2,7 @@ package cn.edu.cup.lims
 
 class Plan {
 
-    Integer thinOrTypeId        //id
+    Integer thingOrTypeId        //id
     String thingOrTypeName      //thing ID 以及名称
     Date updateDate
     Boolean isTypePlan = true   // 针对类型的计划
@@ -10,7 +10,7 @@ class Plan {
     static hasMany = [planItems: PlanItem]
 
     static constraints = {
-        thinOrTypeId()
+        thingOrTypeId()
         thingOrTypeName()
         updateDate()
         isTypePlan()

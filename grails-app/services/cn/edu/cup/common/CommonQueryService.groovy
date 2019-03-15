@@ -48,13 +48,13 @@ class CommonQueryService {
                     }
                     result.objectList = objectList
                 } else {
-                    result.message = "请完善list查询."
+                    result.message = "请完善list查询.--${keyString}"
                 }
             }
         } else {
             def nq = new QueryStatement(keyString: keyString);
             queryStatementService.save(nq)
-            result.message = "创建新的list查询."
+            result.message = "创建新的list查询.--${keyString}"
         }
         return result
     }

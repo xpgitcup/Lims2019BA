@@ -31,11 +31,13 @@
 <body>
 
 <div class="nav">
-    <ul id="operation4ProgressUl">
+    <ul id="operation4PlanUl">
         <li class="icon-help">&nbsp&nbsp&nbsp&nbsp：</li>
         <li id="tipsOperation4Progress"></li>
         <li>当前：${planTitle}.${planJsRoutine}</li>
-        <li id="currentSelect"></li>
+        <li id="currentTitle"></li>
+        <li><a id="createItem"></a></li>
+        <li><a id="editItem"></a></li>
     </ul>
 </div>
 
@@ -43,10 +45,19 @@
     <div class="message" role="status">${flash.message}</div>
 </g:if>
 
-<div id="operation4ProgressGLDiv" class="easyui-tabs">
+<div class="container-fluid">
+    <!--左面显示类型-->
+    <div class="col-md-6">
+        <div class="easyui-panel">
+            <ul id="operation4ThingTypeUL" class="easyui-tree"></ul>
+        </div>
+    </div>
+    <!--右边显示计划-->
+    <div class="col-md-6">
+        <div id="operation4PlanDiv" class="easyui-panel">
+        </div>
+    </div>
 </div>
-
-<div class="easyui-panel" id="editProgressDiv"></div>
 
 </body>
 </html>
